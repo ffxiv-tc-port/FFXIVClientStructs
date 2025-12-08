@@ -12,7 +12,7 @@ public unsafe partial struct AgentActionDetail {
     [FieldOffset(0x44)] public uint AdjustedId; // Example: Summon Titan II
 
     // flag & 1 = get AdjustedActionId
-    [MemberFunction("E8 ?? ?? ?? ?? 4C 8B 7C 24 ?? E9 ?? ?? ?? ?? 83 F8 0F")]
+    [MemberFunction("E8 ?? ?? ?? ?? E9 ?? ?? ?? ?? 83 F8 0F")]
     public partial void HandleActionHover(ActionKind actionKind, uint actionId, int flag, byte isLovmActionDetail);
 }
 
