@@ -22,15 +22,15 @@ public unsafe partial struct RaptureAtkModule {
         return uiModule == null ? null : uiModule->GetRaptureAtkModule();
     }
 
-    [FieldOffset(0x82C0)] public ushort UiMode; // 0 = In Lobby, 1 = In Game
-    [FieldOffset(0x82C2)] public ushort UISetupStage; // unsure
+    [FieldOffset(0x82C0 - 0x10)] public ushort UiMode; // 0 = In Lobby, 1 = In Game
+    [FieldOffset(0x82C2 - 0x10)] public ushort UISetupStage; // unsure
 
-    [FieldOffset(0x8338)] internal Utf8String Unk8338;
-    [FieldOffset(0x83A0), FixedSizeArray] internal FixedSizeArray6<Utf8String> _unkArray;
-    [FieldOffset(0x8610)] public Utf8String ItalicOn; // <italic(1)>
-    [FieldOffset(0x8678)] public Utf8String ItalicOff; // <italic(0)>
-    [FieldOffset(0x86E0)] public Utf8String BoldOn; // <bold(1)>
-    [FieldOffset(0x8748)] public Utf8String BoldOff; // <bold(0)>
+    [FieldOffset(0x8338 - 0x10)] internal Utf8String Unk8338;
+    [FieldOffset(0x83A0 - 0x10), FixedSizeArray] internal FixedSizeArray6<Utf8String> _unkArray;
+    [FieldOffset(0x8610 - 0x10)] public Utf8String ItalicOn; // <italic(1)>
+    [FieldOffset(0x8678 - 0x10)] public Utf8String ItalicOff; // <italic(0)>
+    [FieldOffset(0x86E0 - 0x10)] public Utf8String BoldOn; // <bold(1)>
+    [FieldOffset(0x8748 - 0x10)] public Utf8String BoldOff; // <bold(0)>
 
     [FieldOffset(0x87F7 - 0x10)] public AgentUpdateFlags AgentUpdateFlag; // reset happens in RaptureAtkModule_OnUpdate
     [FieldOffset(0x87F8 - 0x10)] internal fixed byte AddonAllocators[0x28 * 917];
@@ -47,29 +47,29 @@ public unsafe partial struct RaptureAtkModule {
     [FieldOffset(0x1C6B8 - 0x10)] public int NameplateInfoCount;
     [FieldOffset(0x1C6C0 - 0x10), FixedSizeArray] internal FixedSizeArray50<NamePlateInfo> _namePlateInfoEntries;
 
-    [FieldOffset(0x23B38), FixedSizeArray] internal FixedSizeArray18<CrystalCache> _crystalItemCache;
-    [FieldOffset(0x245E8)] public ItemCache* KeyItemCache; // ptr to 120 entries
-    [FieldOffset(0x245F0)] public ItemCache* EquippedItemCache; // ptr to 14 entries
-    [FieldOffset(0x245F8), FixedSizeArray] internal FixedSizeArray160<ItemCache> _inventoryItemCache; // see "E8 ?? ?? ?? ?? 48 8B 07 8D 55 05", only 140 slots are processed, unused?
-    [FieldOffset(0x29AF8)] public uint InventoryItemCacheSlotCount;
-    [FieldOffset(0x29AFC)] public uint GilCap;
+    [FieldOffset(0x23B38 - 0x10), FixedSizeArray] internal FixedSizeArray18<CrystalCache> _crystalItemCache;
+    [FieldOffset(0x245E8 - 0x10)] public ItemCache* KeyItemCache; // ptr to 120 entries
+    [FieldOffset(0x245F0 - 0x10)] public ItemCache* EquippedItemCache; // ptr to 14 entries
+    [FieldOffset(0x245F8 - 0x10), FixedSizeArray] internal FixedSizeArray160<ItemCache> _inventoryItemCache; // see "E8 ?? ?? ?? ?? 48 8B 07 8D 55 05", only 140 slots are processed, unused?
+    [FieldOffset(0x29AF8 - 0x10)] public uint InventoryItemCacheSlotCount;
+    [FieldOffset(0x29AFC - 0x10)] public uint GilCap;
 
-    [FieldOffset(0x29B40)] public uint LocalPlayerClassJobId;
-    [FieldOffset(0x29B44)] public uint LocalPlayerLevel;
+    [FieldOffset(0x29B40 - 0x10)] public uint LocalPlayerClassJobId;
+    [FieldOffset(0x29B44 - 0x10)] public uint LocalPlayerLevel;
 
-    [FieldOffset(0x29B4D)] public bool QuickGatheringEnabled;
+    [FieldOffset(0x29B4D - 0x10)] public bool QuickGatheringEnabled;
 
-    [FieldOffset(0x29BB8)] internal ExcelSheet* AddonParamSheet;
-    [FieldOffset(0x29BC0)] public AtkTexture CharaViewDefaultBackgroundTexture; // "ui/common/CharacterBg.tex" (or _hr1 variant)
+    [FieldOffset(0x29BB8 - 0x10)] internal ExcelSheet* AddonParamSheet;
+    [FieldOffset(0x29BC0 - 0x10)] public AtkTexture CharaViewDefaultBackgroundTexture; // "ui/common/CharacterBg.tex" (or _hr1 variant)
 
-    [FieldOffset(0x29BDC)] public uint LoginSummonCompanionId;
-    [FieldOffset(0x29BE0)] public float LoginSummonCompanionCountdown;
+    [FieldOffset(0x29BDC - 0x10)] public uint LoginSummonCompanionId;
+    [FieldOffset(0x29BE0 - 0x10)] public float LoginSummonCompanionCountdown;
     /// <remarks> Only for Region 5 </remarks>
-    [FieldOffset(0x29BE4)] public float HourTimer;
+    [FieldOffset(0x29BE4 - 0x10)] public float HourTimer;
     /// <remarks> Only for Region 5 </remarks>
-    [FieldOffset(0x29BE8)] public int HoursPlayed;
+    [FieldOffset(0x29BE8 - 0x10)] public int HoursPlayed;
 
-    [FieldOffset(0x29C00)] internal nint ShellCommands; // only 1 function to open links?
+    [FieldOffset(0x29C00 - 0x10)] internal nint ShellCommands; // only 1 function to open links?
 
     [MemberFunction("E8 ?? ?? ?? ?? 48 89 9F ?? ?? ?? ?? 48 89 5F 58")]
     public partial bool ChangeUiMode(uint uiMode);
