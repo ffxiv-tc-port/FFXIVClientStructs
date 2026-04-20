@@ -26,6 +26,9 @@ public unsafe partial struct PacketDispatcher {
     [MemberFunction("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 48 83 EC 40 B8 00 00 00 E0")]
     public static partial void HandleEventPlayPacket(ulong objectId, uint eventId, ushort stage, ulong a4, uint* payload, byte payloadSize);
 
+    [MemberFunction("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 48 83 EC ?? 49 8B D9 41 0F B6 F8 0F B7 F2 8B E9 E8 ?? ?? ?? ?? 44 0F B6 54 24 ?? 44 0F B6 CF 44 88 54 24 ?? 44 0F B7 C6 8B D5")]
+    public static partial void HandleEventYieldPacket(Game.Event.EventId eventId, short scene, byte yieldId, int* intParams, byte intParamCount);
+
     [MemberFunction("E8 ?? ?? ?? ?? EB 10 48 8B 0D")]
     public static partial void SendEventCompletePacket(uint eventId, ushort stage, byte a3, uint* payload, byte payloadSize, void* a6);
 
