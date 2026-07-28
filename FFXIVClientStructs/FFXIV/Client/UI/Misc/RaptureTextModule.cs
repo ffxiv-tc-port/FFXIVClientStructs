@@ -87,12 +87,6 @@ public unsafe partial struct RaptureTextModule {
     [MemberFunction("E8 ?? ?? ?? ?? 48 8B 4D 80 48 8D 55 60")]
     public partial void CreateSheetLink(ExcelSheet* sheet, Utf8String* text, int rowId, int colParam);
 
-    [MemberFunction("48 89 5C 24 ?? 55 56 57 41 56 41 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 48 8B 01 45 8B F9 41 8B E8 48 8B F2 4C 8B F1 FF 50 ?? 48 8B 50")]
-    public partial void SetGlobalTempEntity1(CStringPointer name, int sex, uint objStrId);
-
-    [MemberFunction("E8 ?? ?? ?? ?? 48 8B 75 A8")]
-    public partial void SetGlobalTempEntity2(CStringPointer name, int sex, uint objStrId);
-
     [Flags]
     public enum SheetRedirectFlags {
         None = 0,

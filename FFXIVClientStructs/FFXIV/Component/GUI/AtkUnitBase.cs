@@ -150,7 +150,7 @@ public unsafe partial struct AtkUnitBase : ICreatable {
     [FieldOffset(0x1E4)] public ushort Id;
     [FieldOffset(0x1E6)] public ushort ParentId;
     [FieldOffset(0x1E8)] public ushort HostId; // for example, in CharacterProfile this holds the ID of the Character addon
-    [FieldOffset(0x1EA)] public ushort BlockedParentId;
+    [FieldOffset(0x1EA)] public ushort ContextMenuParentId;
     [FieldOffset(0x1EC)] public byte CursorNavigationOwnIndex;
     [FieldOffset(0x1ED)] public byte Alpha;
     [FieldOffset(0x1EE)] public byte ShowHideFlags;
@@ -173,11 +173,6 @@ public unsafe partial struct AtkUnitBase : ICreatable {
     /// Check if OnSetup was called.
     /// </summary>
     public bool IsReady => (Flags1A1 & 0x01) != 0;
-
-    public bool DisableUserClose {
-        readonly get => (Flags1A1 & 0x04) != 0;
-        set => Flags1A1 = value ? (byte)(Flags1A1 | 0x04) : (byte)(Flags1A1 & ~0x04);
-    }
 
     public Span<AtkValue> AtkValuesSpan => new Span<AtkValue>(AtkValues, AtkValuesCount);
 
