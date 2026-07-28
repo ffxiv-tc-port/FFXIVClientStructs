@@ -1,4 +1,5 @@
 using FFXIVClientStructs.FFXIV.Client.Game.Network;
+using FFXIVClientStructs.FFXIV.Client.Game.Object;
 
 namespace FFXIVClientStructs.FFXIV.Client.Network;
 
@@ -15,6 +16,21 @@ public unsafe partial struct PacketDispatcher {
     [FieldOffset(0x20)] public uint Key0;
     [FieldOffset(0x24)] public uint Key1;
     [FieldOffset(0x28)] public uint Key2;
+
+    [MemberFunction("40 55 53 57 41 54 41 56 48 8D AC 24 ?? ?? ?? ?? B8 ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 2B E0 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 85 ?? ?? ?? ?? 8B 85")]
+    public static partial void HandleActorControlPacket(
+        uint entityId,
+        uint category,
+        uint arg1,
+        uint arg2,
+        uint arg3,
+        uint arg4,
+        uint arg5,
+        uint arg6,
+        uint arg7,
+        uint arg8,
+        GameObjectId targetId,
+        bool isRecorded);
 
     [MemberFunction("48 89 5C 24 ?? 56 48 83 EC ?? 48 8B 0D ?? ?? ?? ?? 48 8B F2")]
     public static partial void HandleSocialPacket(uint targetId, nint packet);
