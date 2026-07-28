@@ -100,9 +100,10 @@ public unsafe partial struct ActionManager {
     /// <param name="targetId">Intended target for the action. Note that real target can be modified (e.g. replaced with player for self-targeted actions, etc) by ResolveTarget.</param>
     /// <param name="location">Target position, important for area-targeted spells. Be careful if passing null - game doesn't really expect that and might dereference it in some code paths!</param>
     /// <param name="extraParam">See UseAction.</param>
+    /// <param name="a7">Unknown, added in TC 7.20 (matches global 7.3 shape); game passes a bool-like value, 0 is a safe default.</param>
     /// <returns></returns>
-    [MemberFunction("E8 ?? ?? ?? ?? 41 3A C5 0F 85 ?? ?? ?? ??")]
-    public partial bool UseActionLocation(ActionType actionType, uint actionId, ulong targetId = 0xE000_0000, Vector3* location = null, uint extraParam = 0);
+    [MemberFunction("E8 ?? ?? ?? ?? 40 3A C7 0F 85 ?? ?? ?? ??")]
+    public partial bool UseActionLocation(ActionType actionType, uint actionId, ulong targetId = 0xE000_0000, Vector3* location = null, uint extraParam = 0, byte a7 = 0);
 
     [MemberFunction("E8 ?? ?? ?? ?? 4C 8B 6C 24 ?? 85 C0 74")]
     public partial uint GetActionStatus(ActionType actionType, uint actionId, ulong targetId = 0xE000_0000, bool checkRecastActive = true, bool checkCastingActive = true, uint* outOptExtraInfo = null);
