@@ -13,6 +13,8 @@ public unsafe partial struct AtkInputManager {
 
     [FieldOffset(0x80), FixedSizeArray] internal FixedSizeArray256<FocusEntry> _focusList;
 
+    [FieldOffset(0x1880)] public AtkResNode* FocusedNode;
+
     [MemberFunction("E8 ?? ?? ?? ?? 33 C0 48 89 86 ?? ?? ?? ?? 88 86 ?? ?? ?? ?? 38 86")]
     public partial void HandleInput(AtkUnitManager* unitManager, AtkCollisionManager* collisionManager);
 
@@ -27,7 +29,8 @@ public unsafe partial struct AtkInputManager {
     public struct FocusEntry {
         [FieldOffset(0x0)] public AtkEventListener* AtkEventListener;
         [FieldOffset(0x8)] public AtkEventTarget* AtkEventTarget;
-        [FieldOffset(0x10)] public int Unk10;
+        [FieldOffset(0x10)] public int FocusParam;
+        [FieldOffset(0x10), Obsolete("Renamed to FocusParam")] public int Unk10;
     }
 
     [StructLayout(LayoutKind.Explicit, Size = 0x8)]

@@ -30,7 +30,7 @@ public unsafe partial struct UIModule {
     [FieldOffset(0x3C0), FixedSizeArray] internal FixedSizeArray19<RaptureAtkHistory> _atkHistory;
     [FieldOffset(0x7E8)] public int LinkshellCycle;
     [FieldOffset(0x7EC)] public int CrossWorldLinkshellCycle;
-
+    [FieldOffset(0x7F0)] public bool ShouldExitGame;
     [FieldOffset(0x7F4)] public uint FrameCount;
     [FieldOffset(0x7F8)] internal ExcelModuleInterface* ExcelModuleInterface; // this is Component::Excel::ExcelModuleInterface, not Common::Component::Excel::ExcelModuleInterface!
     [FieldOffset(0x800)] internal RaptureTextModule RaptureTextModule;
@@ -96,7 +96,7 @@ public unsafe partial struct UIModule {
     [FieldOffset(0xA2888)] internal MKDSupportJobModule MKDSupportJobModule;
     [FieldOffset(0xA28E8)] internal MKDLoreModule MKDLoreModule;
     [FieldOffset(0xA2948)] internal MKDSupportJobNoteModule MKDSupportJobNoteModule;
-    // [FieldOffset(0xA29A8)] internal nint QPNL; // QuickPanel... something - not in game yet
+    [FieldOffset(0xA29A8)] internal QuickPanelModule QuickPanelModule;
     // [FieldOffset(0xA2BF8)] internal nint Vf81Struct;
     [FieldOffset(0xA2C90)] internal ConfigModule ConfigModule;
     [FieldOffset(0xB1950)] internal RaptureShellModule RaptureShellModule;
