@@ -21,7 +21,7 @@ namespace FFXIVClientStructs.FFXIV.Client.System.Framework;
 [VirtualTable("48 8D 05 ?? ?? ?? ?? 66 C7 41 ?? ?? ?? 48 89 01 48 8B F1", 3)]
 [StructLayout(LayoutKind.Explicit, Size = 0x35F0)]
 public unsafe partial struct Framework {
-    [StaticAddress("49 8B DC 48 89 1D ?? ?? ?? ??", 6, isPointer: true)]
+    [StaticAddress("48 8B 1D ?? ?? ?? ?? 8B 7C 24 64", 3, isPointer: true)]
     public static partial Framework* Instance();
 
     [FieldOffset(0x0010)] public SystemConfig SystemConfig;
@@ -140,7 +140,7 @@ public unsafe partial struct Framework {
     [MemberFunction("E8 ?? ?? ?? ?? 80 7B 1D 01")]
     public partial UIModule* GetUIModule();
 
-    [MemberFunction("E8 ?? ?? ?? ?? 4C 8B 44 24 ?? 48 8B C8 48 8B D3")]
+    [MemberFunction("E8 ?? ?? ?? ?? 4C 8B 44 24 ?? 48 8B D7 48 8B C8")]
     public partial UIClipboard* GetUIClipboard();
 
     [MemberFunction("80 B9 ?? ?? ?? ?? 00 74 ?? 48 8B 81 ?? ?? ?? ?? C3")]

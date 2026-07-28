@@ -13,17 +13,17 @@ public unsafe partial struct HousingManager {
     [FieldOffset(0x10)] public IndoorTerritory* IndoorTerritory;
     [FieldOffset(0x18)] public WorkshopTerritory* WorkshopTerritory;
 
-    [MemberFunction("E8 ?? ?? ?? ?? 41 BE 05 00 00 00 8D 53")]
+    [MemberFunction("E8 ?? ?? ?? ?? 0F B6 C0 BB")]
     private partial byte GetInvertedBrightness();
     public byte GetBrightness() => (byte)(5 - GetInvertedBrightness());
 
     [MemberFunction("E8 ?? ?? ?? ?? 84 C0 41 8B F5")]
     public partial bool HasHousePermissions();
 
-    [MemberFunction("E8 ?? ?? ?? ?? 84 C0 74 10 40 0F B6 D7")]
+    [MemberFunction("E8 ?? ?? ?? ?? 48 8B CB 84 C0 74 ?? 8B 95")]
     public partial bool IsOutside();
 
-    [MemberFunction("E8 ?? ?? ?? ?? 84 C0 41 8B D6")]
+    [MemberFunction("E8 ?? ?? ?? ?? 49 8B CE BA")]
     public partial bool IsInside();
 
     [MemberFunction("E8 ?? ?? ?? ?? 84 C0 74 0E 48 8B CB")]
@@ -47,12 +47,16 @@ public unsafe partial struct HousingManager {
     [MemberFunction("E8 ?? ?? ?? ?? BA ?? ?? ?? ?? 48 8B F8 8D 4A 02")]
     public partial HouseId GetCurrentIndoorHouseId();
 
+    /// <remarks> Only available when <see cref="OutdoorTerritory"/> or <see cref="IndoorTerritory"/> are loaded. </remarks>
+    [MemberFunction("E8 ?? ?? ?? ?? 0F B7 56 ?? 41 B0")]
+    public partial HousingFurnitureManager* GetFurnitureManager();
+
     /// <summary>
     /// Gets the TerritoryTypeId of the house the player is currently standing at.<br/>
     /// For indoor territories that were renovated, this returns the original location.
     /// </summary>
     /// <returns></returns>
-    [MemberFunction("48 8B 05 ?? ?? ?? ?? 48 8B 50 08 48 85 D2 74 10")]
+    [MemberFunction("E8 ?? ?? ?? ?? 0F B7 C8 E8 ?? ?? ?? ?? 4C 89 74 24")]
     public static partial uint GetOriginalHouseTerritoryTypeId();
 
     /// <summary>
@@ -101,7 +105,7 @@ public unsafe partial struct HousingManager {
     /// <param name="pointB">The point to calculate to</param>
     /// <param name="speed">Speed of the submarine to use</param>
     /// <returns>Voyage time</returns>
-    [MemberFunction("E8 ?? ?? ?? ?? 49 8B 8C 24 ?? ?? ?? ?? 03 F8")]
+    [MemberFunction("E8 ?? ?? ?? ?? 03 F8 48 8D 55")]
     public static partial uint GetSubmarineVoyageTime(byte pointA, byte pointB, short speed);
 
     /// <summary>
@@ -127,7 +131,7 @@ public unsafe partial struct HousingManager {
     /// </summary>
     /// <param name="point">The point to check is unlocked or not</param>
     /// <returns>True or False</returns>
-    [MemberFunction("E8 ?? ?? ?? ?? 84 C0 74 4F 49 8B 57 38")]
+    [MemberFunction("E8 ?? ?? ?? ?? 84 C0 74 ?? 49 8B 56")]
     public static partial bool IsSubmarineExplorationUnlocked(byte point);
 
     /// <summary>
@@ -144,7 +148,7 @@ public unsafe partial struct HousingManager {
 
 [StructLayout(LayoutKind.Explicit, Size = 0x8)]
 public struct HouseId : IEquatable<HouseId>, IComparable<HouseId> {
-    [FieldOffset(0x0), CExportIgnore] public ulong Id;
+    [FieldOffset(0x0), CExporterIgnore] public ulong Id;
     /// <remarks>
     /// Masked data:<br/>
     /// - <c>0b1000_0000</c> (<c>0x80</c>) = Apartment Flag<br/>

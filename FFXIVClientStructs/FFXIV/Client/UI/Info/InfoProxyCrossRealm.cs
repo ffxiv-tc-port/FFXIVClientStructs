@@ -32,7 +32,7 @@ public unsafe partial struct InfoProxyCrossRealm {
     [MemberFunction("E8 ?? ?? ?? ?? 0F B6 C0 EB 08")]
     public static partial byte GetGroupMemberCount(int groupIndex);
 
-    [MemberFunction("E8 ?? ?? ?? ?? 49 8B 5E 10 48 8B C8")]
+    [MemberFunction("E8 ?? ?? ?? ?? 8B CB 89 5D")]
     public static partial CrossRealmMember* GetGroupMember(uint memberIndex, int groupIndex = -1);
 
     [MemberFunction("E8 ?? ?? ?? ?? 48 85 C0 74 0C 0F B6 40 2E")]
@@ -41,7 +41,7 @@ public unsafe partial struct InfoProxyCrossRealm {
     [MemberFunction("48 89 5C 24 ?? 48 89 7C 24 ?? 4C 8B 15")]
     public static partial CrossRealmMember* GetMemberByEntityId(uint entityId);
 
-    [MemberFunction("E8 ?? ?? ?? ?? 84 C0 75 ?? 0F B6 5E")]
+    [MemberFunction("E8 ?? ?? ?? ?? 84 C0 75 ?? ?? ?? ?? 48 8B CB FF 50 ?? 41 0F B7 4E")]
     public static partial bool IsContentIdInParty(ulong contentId);
 
     [MemberFunction("40 53 41 57 48 83 EC 28 48 8B D9 4C 8B FA 48 8B 0D")]

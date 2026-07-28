@@ -9,7 +9,7 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Agent;
 [Agent(AgentId.SatisfactionSupply)]
 [GenerateInterop]
 [Inherits<AgentInterface>]
-[StructLayout(LayoutKind.Explicit, Size = 0x500)]
+[StructLayout(LayoutKind.Explicit, Size = 0x4F8)]
 public unsafe partial struct AgentSatisfactionSupply {
 
     [FieldOffset(0x40)] public SatisfactionSupplyNpcInfo NpcInfo;
@@ -34,8 +34,8 @@ public unsafe partial struct AgentSatisfactionSupply {
     [FieldOffset(0x4C8), CExporterExcel("FishingSpot")] public void* FishingSpotRow;
     [FieldOffset(0x4D0), CExporterExcel("SpearfishingNotebook")] public void* SpearfishingNotebookRow;
 
-    [FieldOffset(0x4D8)] internal FixedSizeArray2<uint> CrafterScripIds;
-    [FieldOffset(0x4E0)] internal FixedSizeArray2<uint> GathererScripIds;
+    [FieldOffset(0x4D8), FixedSizeArray] internal FixedSizeArray2<uint> _crafterScripIds;
+    [FieldOffset(0x4E0), FixedSizeArray] internal FixedSizeArray2<uint> _gathererScripIds;
     [FieldOffset(0x4E8)] public uint TimeRemainingHours;
     [FieldOffset(0x4EC)] public uint TimeRemainingMinutes;
 

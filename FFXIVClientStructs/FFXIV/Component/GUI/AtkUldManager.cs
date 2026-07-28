@@ -31,7 +31,6 @@ public unsafe partial struct AtkUldManager {
     [FieldOffset(0x80)] public ushort RootNodeWidth;
     [FieldOffset(0x82)] public ushort RootNodeHeight;
     [FieldOffset(0x84)] public ushort NodeListSize; // this is the allocated size of nodelist, count is the amount of nodes it has
-    [FieldOffset(0x86), Obsolete("Use ResourceFlags", true)] public byte Flags1;
     [FieldOffset(0x86)] public AtkUldManagerResourceFlag ResourceFlags;
     [FieldOffset(0x88)] public AtkUldManagerBaseType BaseType;
     [FieldOffset(0x89)] public AtkLoadState LoadedState; // 3 is fully loaded
@@ -50,7 +49,7 @@ public unsafe partial struct AtkUldManager {
     public AtkComponentBase* CreateAtkComponent(ComponentType type)
         => CreateAtkComponent((uint)type);
 
-    [MemberFunction("E8 ?? ?? ?? ?? 49 8B 55 08 48 89 04 17")]
+    [MemberFunction("E8 ?? ?? ?? ?? 49 8B 55 ?? 0F B7 CD")]
     public partial AtkResNode* CreateAtkNode(uint type);
 
     public AtkResNode* CreateAtkNode(NodeType type)
@@ -77,10 +76,10 @@ public unsafe partial struct AtkUldManager {
     public static AtkCollisionNode* CreateAtkCollisionNode()
         => (AtkCollisionNode*)CreateAtkNodeStatic(NodeType.Collision);
 
-    [MemberFunction("E8 ?? ?? ?? ?? 66 41 3B B7")]
+    [MemberFunction("E8 ?? ?? ?? ?? 33 ED 66 89 6B")]
     public partial void ExpandNodeListSize(ushort newNodeListSize);
 
-    [MemberFunction("E8 ?? ?? ?? ?? 49 8B 44 24 ?? 41 8B CF")]
+    [MemberFunction("E8 ?? ?? ?? ?? 49 8B 47 ?? 41 8B CC")]
     public partial void UpdateDrawNodeList();
 
     [MemberFunction("40 57 48 83 EC 30 0F B6 81 ?? ?? ?? ?? 48 8B F9 A8 01")]
