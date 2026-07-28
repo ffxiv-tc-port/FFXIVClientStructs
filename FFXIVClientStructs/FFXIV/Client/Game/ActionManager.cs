@@ -114,7 +114,7 @@ public unsafe partial struct ActionManager {
     [MemberFunction("40 53 48 83 EC ?? FF C9")]
     public static partial uint GetSpellIdForAction(ActionType actionType, uint actionId);
 
-    [MemberFunction("E8 ?? ?? ?? ?? 83 7F 4C 01")]
+    [MemberFunction("40 53 48 83 EC ?? 0F B6 D2 48 8B D9 E8 ?? ?? ?? ?? 8B D0 48 8B CB E8 ?? ?? ?? ?? 48 8B D8")]
     public partial float GetRecastTime(ActionType actionType, uint actionId);
 
     /// <summary>

@@ -296,7 +296,7 @@ public unsafe partial struct AtkResNode : ICreatable {
     [MemberFunction("E8 ?? ?? ?? ?? EB ?? 0F 57 C0 F3 0F 59 C6")]
     public partial float GetRotationDegrees();
 
-    [MemberFunction("E8 ?? ?? ?? ?? EB ?? 8B 41")]
+    [MemberFunction("48 85 C9 74 ?? 8B 91 ?? ?? ?? ?? 8B C2 F3 0F 59 0D")]
     public partial void SetRotationDegrees(float rotation);
 
     [MemberFunction("E8 ?? ?? ?? ?? 48 63 46 30")]
