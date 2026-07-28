@@ -4,7 +4,6 @@ using FFXIVClientStructs.FFXIV.Client.System.String;
 using FFXIVClientStructs.FFXIV.Common.Component.Excel;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using FFXIVClientStructs.FFXIV.Component.Log;
-using FFXIVClientStructs.FFXIV.Component.Text;
 using ExcelModuleInterface = FFXIVClientStructs.FFXIV.Component.Excel.ExcelModuleInterface;
 
 namespace FFXIVClientStructs.FFXIV.Client.UI.Misc;
@@ -33,8 +32,6 @@ public unsafe partial struct RaptureLogModule {
 
     [FieldOffset(0x530), FixedSizeArray] internal FixedSizeArray5<RaptureLogModuleTab> _chatTabs;
 
-    [FieldOffset(0x33B0)] public StdDeque<LogMessageQueueItem> LogMessageQueue;
-
     [FieldOffset(0x33D8)] public ExcelSheet* LogMessageSheet;
     /// <remarks> Set to <c>true</c> to reload the tab. </remarks>
     [FieldOffset(0x33E8), FixedSizeArray] internal FixedSizeArray4<bool> _chatTabIsPendingReload;
@@ -62,9 +59,6 @@ public unsafe partial struct RaptureLogModule {
 
     [MemberFunction("E9 ?? ?? ?? ?? 0C ?? 88 42")] // ShowLogMessage<uint>
     public partial void ShowLogMessageUInt(uint logMessageId, uint value);
-
-    [MemberFunction("E8 ?? ?? ?? ?? 49 8D 8E ?? ?? ?? ?? E8 ?? ?? ?? ?? 49 8B 06 49 8B CE FF 50 40 4C 8B 7C 24")]
-    public partial void Update();
 
     [MemberFunction("E8 ?? ?? ?? ?? 0F BE 4B 44")] // ShowLogMessage<uint,uint>
     public partial void ShowLogMessageUIntUInt(uint logMessageId, uint value1, uint value2);
@@ -171,39 +165,4 @@ public struct LogMessageSource {
 public struct RaptureLogModuleTab {
     [FieldOffset(0x00)] public Utf8String Name;
     [FieldOffset(0x68)] public Utf8String VisibleLogLines;
-}
-
-[GenerateInterop]
-[StructLayout(LayoutKind.Explicit, Size = 0x248)]
-public partial struct LogMessageQueueItem {
-    [FieldOffset(0)] public StdDeque<TextParameter> Parameters;
-    [FieldOffset(0x28), FixedSizeArray(isString: true)] internal FixedSizeArray256<byte> _sourceName;
-    [FieldOffset(0x128), FixedSizeArray(isString: true)] internal FixedSizeArray256<byte> _targetName;
-    [FieldOffset(0x228)] public uint LogMessageId;
-    [FieldOffset(0x22C)] public EntityRelationKind SourceKind;
-    [FieldOffset(0x22D)] public EntityRelationKind TargetKind;
-    [FieldOffset(0x22E)] public byte SourceSex;
-    [FieldOffset(0x22F)] public byte TargetSex;
-    [FieldOffset(0x230)] public uint SourceObjStrId;
-    [FieldOffset(0x234)] public uint TargetObjStrId;
-    [FieldOffset(0x238)] public float SourceToLocalPlayerYDelta;
-    [FieldOffset(0x23C)] public ushort SourceHomeWorld;
-    [FieldOffset(0x23E)] public ushort TargetHomeWorld;
-    [FieldOffset(0x240)] public bool SourceIsPlayer;
-    [FieldOffset(0x241)] public bool TargetIsPlayer;
-}
-
-public enum EntityRelationKind : byte {
-    None = 0,
-    LocalPlayer = 1,
-    PartyMember = 2,
-    AllianceMember = 3,
-    OtherPlayer = 4,
-    EngagedEnemy = 5,
-    UnengagedEnemy = 6,
-    FriendlyNpc = 7,
-    PetOrCompanion = 8,
-    PetOrCompanionParty = 9,
-    PetOrCompanionAlliance = 10,
-    PetOrCompanionOther = 11,
 }

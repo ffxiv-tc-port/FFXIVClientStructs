@@ -73,6 +73,6 @@ public unsafe partial struct AtkModuleInterface {
         public partial AtkValue* ReceiveEvent(AtkValue* returnValue, AtkValue* values, uint valueCount, ulong eventKind);
 
         [VirtualFunction(1)]
-        public partial AtkValue* ReceiveEventWithResult(AtkValue* returnValue, AtkValue* values, uint valueCount, ulong eventKind); // seems to handle user input validation? but.. not always 🤔
+        public partial AtkValue* ReceiveEvent2(AtkValue* returnValue, AtkValue* values, uint valueCount, ulong eventKind); // seems to handle user input validation? but.. not always 🤔
     }
 }
