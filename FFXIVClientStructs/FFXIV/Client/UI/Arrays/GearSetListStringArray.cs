@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 111 * 8)]
 public unsafe partial struct GearSetListStringArray {
     public static GearSetListStringArray* Instance() {
-        var stringArray = AtkStage.Instance()->GetStringArrayData(StringArrayType.GearSetList);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var stringArray = stage->GetStringArrayData(StringArrayType.GearSetList);
         return stringArray == null ? null : (GearSetListStringArray*)stringArray->StringArray;
     }
 

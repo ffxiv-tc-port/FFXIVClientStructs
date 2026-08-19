@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 42 * 4)]
 public unsafe partial struct CastBarEnemyNumberArray {
     public static CastBarEnemyNumberArray* Instance() {
-        var numberArray = AtkStage.Instance()->GetNumberArrayData(NumberArrayType.CastBarEnemy);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var numberArray = stage->GetNumberArrayData(NumberArrayType.CastBarEnemy);
         return numberArray == null ? null : (CastBarEnemyNumberArray*)numberArray->IntArray;
     }
 

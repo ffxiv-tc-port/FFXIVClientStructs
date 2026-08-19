@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 53 * 4)]
 public unsafe partial struct EnemyListNumberArray {
     public static EnemyListNumberArray* Instance() {
-        var numberArray = AtkStage.Instance()->GetNumberArrayData(NumberArrayType.EnemyList);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var numberArray = stage->GetNumberArrayData(NumberArrayType.EnemyList);
         return numberArray == null ? null : (EnemyListNumberArray*)numberArray->IntArray;
     }
 

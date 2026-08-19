@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 6 * 4)]
 public unsafe partial struct AreaMapNumberArray {
     public static AreaMapNumberArray* Instance() {
-        var numberArray = AtkStage.Instance()->GetNumberArrayData(NumberArrayType.AreaMap);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var numberArray = stage->GetNumberArrayData(NumberArrayType.AreaMap);
         return numberArray == null ? null : (AreaMapNumberArray*)numberArray->IntArray;
     }
 
