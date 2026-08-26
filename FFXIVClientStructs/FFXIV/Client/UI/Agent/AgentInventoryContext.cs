@@ -24,7 +24,7 @@ public unsafe partial struct AgentInventoryContext {
     [FieldOffset(0x6B8)] public int PositionY;
 
     [FieldOffset(0x6C8)] public uint OwnerAddonId;
-    [FieldOffset(0x6CC), CExportIgnore] public int YesNoPosition; // 2 shorts combined, gets passed as int arg, default = -1
+    [FieldOffset(0x6CC), CExporterIgnore] public int YesNoPosition; // 2 shorts combined, gets passed as int arg, default = -1
     [FieldOffset(0x6CC)] public short YesNoX;
     [FieldOffset(0x6CE)] public short YesNoY;
     [FieldOffset(0x6D0)] public InventoryType TargetInventoryId;
@@ -43,7 +43,7 @@ public unsafe partial struct AgentInventoryContext {
     [MemberFunction("83 B9 ?? ?? ?? ?? ?? 7E ?? 39 91")]
     public partial void OpenForItemSlot(InventoryType inventoryType, int slot, int a4, uint addonId);
 
-    [MemberFunction("E8 ?? ?? ?? ?? E9 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 89 74 24 ??")]
+    [MemberFunction("E8 ?? ?? ?? ?? E9 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 89 5C 24")]
     public partial long UseItem(uint itemId, InventoryType inventoryType = InventoryType.Invalid, uint itemSlot = 0, short a5 = 0);
 
     [MemberFunction("E8 ?? ?? ?? ?? 48 8B B4 24 ?? ?? ?? ?? 0F B6 D8")]
