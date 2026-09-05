@@ -1,3 +1,41 @@
+<!-- ffxiv-tc-port 繁體中文說明開始 -->
+# FFXIVClientStructs(台服 fork)
+
+社群逆向工程專案，提供 FFXIV 原生類別的記憶體結構（struct）與函式特徵碼，是 Dalamud 與所有
+插件跟遊戲原生記憶體互動的底層。
+
+## 台服 fork 的目的
+
+以 yanmucorp 的中文客戶端結構分支（`CN-7.3` / `CN-API12-LAST` 合併到 `TC-BASE`）為基底，
+再對齊台服 7.20 實機做特徵碼與結構修正：
+
+- **1698 條特徵碼全量掃描比對台服 7.20 執行檔**，修正 5 條失效特徵碼中的 3 條：
+  `AgentActionDetail` 虛擬表（dtor cmp 位移 0x54→0x5C，結構插入 8 bytes）、
+  `GetRecastTime`、`SetRotationDegrees`——`AgentActionDetail` 那條若不修，會讓
+  Dalamud 的 `GameGui` 服務建構時 NullReference、整個服務樹垮掉。
+- **合併 `tc-13.0.0.6-pin`**：對齊台服 7.20 實機結構配置。
+- 從上游最小截取 `PacketDispatcher.HandleEventYieldPacket`（`SubmarineTracker` 潛艇航程完成
+  偵測所需），特徵碼已於台服 7.20 執行檔實測唯一命中。
+
+## 與上游的差異
+
+以上各項為主；因基底是 yanmucorp 的中文客戶端分支而非 goatcorp 上游，整體結構差異未逐一比對。
+
+## 誰在用它
+
+艦隊裡 32 個插件消費（不含開發用原始碼備份 `_dr-src`）：`Artisan`、`AutoDuty`、`AutoHook`、
+`AutoRetainer`、`Avarice`、`BOCCHI`、`BossmodReborn`、`CharacterPanelRefined`、`ChilledLeves`、
+`EurekaHelper`、`Explorers-Icebox`、`GatherBuddyReborn`、`ICE`、`IINACT`、`InventoryTools`、
+`LazyLoot`、`Lifestream`、`Marketbuddy`、`Meddle`、`NecroLens`、`NotificationMaster`、`PalacePal`、
+`PeepingTom`、`Questionable`、`Saucy`、`SomethingNeedDoing`、`Splatoon`、`TextAdvance`、
+`WrathCombo`、`YesAlready`、`visland`、`vnavmesh`。
+
+---
+
+以下為上游原始 README，內容未經修改：
+
+<!-- ffxiv-tc-port 繁體中文說明結束 -->
+
 FFXIVClientStructs
 ==================
 
