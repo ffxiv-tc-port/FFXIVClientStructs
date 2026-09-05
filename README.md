@@ -23,12 +23,12 @@
 
 ## 誰在用它
 
-艦隊裡 32 個插件消費（不含開發用原始碼備份 `_dr-src`）：`Artisan`、`AutoDuty`、`AutoHook`、
-`AutoRetainer`、`Avarice`、`BOCCHI`、`BossmodReborn`、`CharacterPanelRefined`、`ChilledLeves`、
-`EurekaHelper`、`Explorers-Icebox`、`GatherBuddyReborn`、`ICE`、`IINACT`、`InventoryTools`、
-`LazyLoot`、`Lifestream`、`Marketbuddy`、`Meddle`、`NecroLens`、`NotificationMaster`、`PalacePal`、
-`PeepingTom`、`Questionable`、`Saucy`、`SomethingNeedDoing`、`Splatoon`、`TextAdvance`、
-`WrathCombo`、`YesAlready`、`visland`、`vnavmesh`。
+**絕大多數插件是透過 Dalamud 本體間接使用它**——建置時走 `$(DalamudLibPath)FFXIVClientStructs.dll`，
+也就是本 fork 編出來、隨 `Dalamud/lib/` 出貨的那一份。
+
+以子模組直接引用的只有 6 個：`AutoRetainer`、`BossmodReborn`、`Dalamud`、`Lifestream`、`Meddle`、`Splatoon`。
+⚠️ 其中多數的 vendored 引用掛在 `Condition="'$(CustomCS)'=='true'"` 底下，而 csproj 寫死 `CustomCS=false`，
+所以**實際出貨的仍是 Dalamud 附帶的那一份**；要查某個 repo 到底吃哪一份，去讀它的 csproj，不要背清單。
 
 ---
 
