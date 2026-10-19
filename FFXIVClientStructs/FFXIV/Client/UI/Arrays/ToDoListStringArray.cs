@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 212 * 8)]
 public unsafe partial struct ToDoListStringArray {
     public static ToDoListStringArray* Instance() {
-        var stringArray = AtkStage.Instance()->GetStringArrayData(StringArrayType.ToDoList);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var stringArray = stage->GetStringArrayData(StringArrayType.ToDoList);
         return stringArray == null ? null : (ToDoListStringArray*)stringArray->StringArray;
     }
 

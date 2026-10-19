@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 34 * 4)]
 public unsafe partial struct ChatLogNumberArray {
     public static ChatLogNumberArray* Instance() {
-        var numberArray = AtkStage.Instance()->GetNumberArrayData(NumberArrayType.ChatLog);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var numberArray = stage->GetNumberArrayData(NumberArrayType.ChatLog);
         return numberArray == null ? null : (ChatLogNumberArray*)numberArray->IntArray;
     }
 

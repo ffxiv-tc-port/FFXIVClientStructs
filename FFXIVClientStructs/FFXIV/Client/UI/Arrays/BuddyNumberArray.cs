@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 10 * 4)]
 public unsafe partial struct BuddyNumberArray {
     public static BuddyNumberArray* Instance() {
-        var numberArray = AtkStage.Instance()->GetNumberArrayData(NumberArrayType.Buddy);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var numberArray = stage->GetNumberArrayData(NumberArrayType.Buddy);
         return numberArray == null ? null : (BuddyNumberArray*)numberArray->IntArray;
     }
 

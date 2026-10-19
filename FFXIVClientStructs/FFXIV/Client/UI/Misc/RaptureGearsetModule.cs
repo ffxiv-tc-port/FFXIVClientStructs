@@ -289,6 +289,9 @@ public unsafe partial struct RaptureGearsetModule {
                 return null;
 
             var bannerModule = BannerModule.Instance();
+            if (bannerModule == null)
+                return null;
+
             var bannerId = bannerModule->GetBannerIdByBannerIndex(BannerIndex - 1);
             if (bannerId == -1)
                 return null;

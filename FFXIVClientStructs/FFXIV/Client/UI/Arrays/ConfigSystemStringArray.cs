@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 2 * 8)]
 public unsafe partial struct ConfigSystemStringArray {
     public static ConfigSystemStringArray* Instance() {
-        var stringArray = AtkStage.Instance()->GetStringArrayData(StringArrayType.ConfigSystem);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var stringArray = stage->GetStringArrayData(StringArrayType.ConfigSystem);
         return stringArray == null ? null : (ConfigSystemStringArray*)stringArray->StringArray;
     }
 

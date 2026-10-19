@@ -15,7 +15,10 @@ namespace FFXIVClientStructs.FFXIV.Client.UI;
 //   Common::Configuration::ConfigBase::ChangeEventInterface
 [GenerateInterop]
 [Inherits<AtkModule>, Inherits<ChangeEventInterface>]
-[StructLayout(LayoutKind.Explicit, Size = 0x29EB0)]
+// Every field below is "- 0x10" on CN/TC (upstream aefc523e0), so the struct itself is 0x10
+// smaller too. Upstream shrank the fields but left this Size alone, which pushed every UIModule
+// field placed after RaptureAtkModule 0x10 too high - see UIModule.cs.
+[StructLayout(LayoutKind.Explicit, Size = 0x29EB0 - 0x10)]
 [VirtualTable("48 8D 05 ?? ?? ?? ?? 48 89 8F ?? ?? ?? ?? 48 89 07", 3)]
 public unsafe partial struct RaptureAtkModule {
     public static RaptureAtkModule* Instance() {

@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 5564 * 4)]
 public unsafe partial struct ActionBarNumberArray {
     public static ActionBarNumberArray* Instance() {
-        var numberArray = AtkStage.Instance()->GetNumberArrayData(NumberArrayType.ActionBar);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var numberArray = stage->GetNumberArrayData(NumberArrayType.ActionBar);
         return numberArray == null ? null : (ActionBarNumberArray*)numberArray->IntArray;
     }
 

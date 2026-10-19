@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 393 * 8)]
 public unsafe partial struct LetterStringArray {
     public static LetterStringArray* Instance() {
-        var stringArray = AtkStage.Instance()->GetStringArrayData(StringArrayType.Letter);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var stringArray = stage->GetStringArrayData(StringArrayType.Letter);
         return stringArray == null ? null : (LetterStringArray*)stringArray->StringArray;
     }
 

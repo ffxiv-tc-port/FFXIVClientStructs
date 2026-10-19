@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 600 * 8)]
 public unsafe partial struct BlackListStringArray {
     public static BlackListStringArray* Instance() {
-        var stringArray = AtkStage.Instance()->GetStringArrayData(StringArrayType.BlackList);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var stringArray = stage->GetStringArrayData(StringArrayType.BlackList);
         return stringArray == null ? null : (BlackListStringArray*)stringArray->StringArray;
     }
 

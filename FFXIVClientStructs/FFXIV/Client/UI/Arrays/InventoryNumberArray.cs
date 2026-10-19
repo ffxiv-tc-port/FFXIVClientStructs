@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 1351 * 4)]
 public unsafe partial struct InventoryNumberArray {
     public static InventoryNumberArray* Instance() {
-        var numberArray = AtkStage.Instance()->GetNumberArrayData(NumberArrayType.Inventory);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var numberArray = stage->GetNumberArrayData(NumberArrayType.Inventory);
         return numberArray == null ? null : (InventoryNumberArray*)numberArray->IntArray;
     }
 

@@ -6,7 +6,9 @@ namespace FFXIVClientStructs.FFXIV.Client.UI.Arrays;
 [StructLayout(LayoutKind.Explicit, Size = 129 * 8)]
 public unsafe partial struct CrossWorldLinkShellStringArray {
     public static CrossWorldLinkShellStringArray* Instance() {
-        var stringArray = AtkStage.Instance()->GetStringArrayData(StringArrayType.CrossWorldLinkShell);
+        var stage = AtkStage.Instance();
+        if (stage == null) return null;
+        var stringArray = stage->GetStringArrayData(StringArrayType.CrossWorldLinkShell);
         return stringArray == null ? null : (CrossWorldLinkShellStringArray*)stringArray->StringArray;
     }
 

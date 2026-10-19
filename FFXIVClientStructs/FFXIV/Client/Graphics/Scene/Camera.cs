@@ -36,6 +36,11 @@ public unsafe partial struct Camera {
 
     public bool WorldToScreen(Vector3 worldPos, out Vector2 screenPos) {
         var device = Device.Instance();
+        if (device == null) {
+            screenPos = Vector2.Zero;
+            return false;
+        }
+
         float width = device->Width;
         float height = device->Height;
         var pCoords = Vector4.Transform(new Vector4(worldPos, 1f), ViewMatrix * RenderCamera->ProjectionMatrix);

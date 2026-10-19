@@ -18,7 +18,8 @@ namespace FFXIVClientStructs.FFXIV.Client.UI;
 //   Common::Configuration::ConfigBase::ChangeEventInterface
 [GenerateInterop]
 [Inherits<UIModuleInterface>, Inherits<AtkModuleEvent>, Inherits<ExcelLanguageEvent>, Inherits<ChangeEventInterface>]
-[StructLayout(LayoutKind.Explicit, Size = 0xF6EB0)]
+// Size is 0x10 smaller on CN/TC because RaptureAtkModule is - see the field block below.
+[StructLayout(LayoutKind.Explicit, Size = 0xF6EB0 - 0x10)]
 [VirtualTable("48 8D 05 ?? ?? ?? ?? 4C 89 4C 24 ?? 48 89 01", 3)]
 public unsafe partial struct UIModule {
     public static UIModule* Instance() {
@@ -104,21 +105,31 @@ public unsafe partial struct UIModule {
 
     [FieldOffset(0xB2F50)] internal UI3DModule UI3DModule;
     [FieldOffset(0xCA490)] internal RaptureAtkModule RaptureAtkModule;
-    [FieldOffset(0xF4340)] internal InfoModule InfoModule;
-    [FieldOffset(0xF5FB8)] internal UIModuleHelpers UIModuleHelpers;
-    [FieldOffset(0xF5FF0)] public Utf8String AddonSheetName;
 
-    [FieldOffset(0xF6060)] public Utf8String UIColorSheetName;
+    // Everything below here sits *after* RaptureAtkModule, which is 0x10 smaller on the CN/TC
+    // client than on the global one. Upstream commit aefc523e0 shrank RaptureAtkModule's own
+    // fields by 0x10 but never shrank its declared Size, so every following UIModule field was
+    // left 0x10 too high. The "- 0x10" is spelled out (same convention RaptureAtkModule.cs uses)
+    // so that rebasing onto upstream shows the delta instead of silently dropping it again.
+    //
+    // Every offset below was read back out of the TC 7.20 ffxiv_dx11.exe as a `lea` displacement;
+    // the three completion strings are additionally confirmed by UIModule::Update @ 0x14074F405,
+    // which passes them straight to CompletionModule::Update.
+    [FieldOffset(0xF4340 - 0x10)] internal InfoModule InfoModule;
+    [FieldOffset(0xF5FB8 - 0x10)] internal UIModuleHelpers UIModuleHelpers;
+    [FieldOffset(0xF5FF0 - 0x10)] public Utf8String AddonSheetName;
 
-    [FieldOffset(0xF60D8)] public Utf8String CompletionSheetName;
-    [FieldOffset(0xF6140)] public Utf8String CompletionOpenIconMacro;
-    [FieldOffset(0xF61A8)] public Utf8String CompletionCloseIconMacro;
-    [FieldOffset(0xF6210)] public Utf8String NewLineMacro;
-    [FieldOffset(0xF6278)] public Utf8String LastTalkName;
-    [FieldOffset(0xF62E0)] public Utf8String LastTalkText;
-    [FieldOffset(0xF6348)] internal UIInputData UIInputData;
-    [FieldOffset(0xF6D78)] internal UIInputModule UIInputModule;
-    // [FieldOffset(0xF6D78)] public Vf79Struct;
+    [FieldOffset(0xF6060 - 0x10)] public Utf8String UIColorSheetName;
+
+    [FieldOffset(0xF60D8 - 0x10)] public Utf8String CompletionSheetName;
+    [FieldOffset(0xF6140 - 0x10)] public Utf8String CompletionOpenIconMacro;
+    [FieldOffset(0xF61A8 - 0x10)] public Utf8String CompletionCloseIconMacro;
+    [FieldOffset(0xF6210 - 0x10)] public Utf8String NewLineMacro;
+    [FieldOffset(0xF6278 - 0x10)] public Utf8String LastTalkName;
+    [FieldOffset(0xF62E0 - 0x10)] public Utf8String LastTalkText;
+    [FieldOffset(0xF6348 - 0x10)] internal UIInputData UIInputData;
+    [FieldOffset(0xF6D78 - 0x10)] internal UIInputModule UIInputModule;
+    // [FieldOffset(0xF6D78 - 0x10)] public Vf79Struct;
 
     [MemberFunction("48 89 5C 24 ?? 48 89 74 24 ?? 57 48 83 EC 20 48 8B F2 48 8B F9 45 84 C9")]
     public partial void ProcessChatBoxEntry(Utf8String* message, nint a4 = 0, bool saveToHistory = false);
