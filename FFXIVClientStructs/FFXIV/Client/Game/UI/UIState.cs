@@ -87,9 +87,9 @@ public unsafe partial struct UIState {
 
     [FieldOffset(0x19E88), FixedSizeArray, Obsolete("Use UnlockedAetherytesBitArray")] internal FixedSizeArray30<byte> _unlockedAetherytesBitmask;
     // Ref: Telepo#UpdateAetheryteList (in the Aetheryte sheet loop)
-    // BitCount: AetheryteSheet.RowCount
+    // BitCount: the whole array, at least AetheryteSheet.RowCount (plugins built on newer data ask for the next id, e.g. 239)
     /// <remarks> Use <see cref="IsAetheryteUnlocked"/>. </remarks>
-    [FieldOffset(0x19E88), FixedSizeArray(isBitArray: true, bitCount: 239)] internal FixedSizeArray30<byte> _unlockedAetherytes;
+    [FieldOffset(0x19E88), FixedSizeArray(isBitArray: true, bitCount: 30 * 8)] internal FixedSizeArray30<byte> _unlockedAetherytes;
 
     [FieldOffset(0x19EA6), FixedSizeArray, Obsolete("Use UnlockedHowTosBitArray")] internal FixedSizeArray37<byte> _unlockedHowtoBitmask;
     // Ref: "85 D2 0F 84 ?? ?? ?? ?? 48 89 5C 24 ?? 48 89 74 24 ?? 57 48 83 EC 20 48 8B F9"
