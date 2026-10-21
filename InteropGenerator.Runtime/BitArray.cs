@@ -64,13 +64,12 @@ public readonly unsafe struct BitArray(byte* ptr, int bitCount) {
     /// Gets the value of the bit at a specific position in the <see cref="BitArray"/>.
     /// </summary>
     /// <param name="index">The zero-based index of the value to get.</param>
-    /// <returns>The value of the bit at position <paramref name="index"/>.</returns>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is less than zero.</exception>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is greater than or equal to <see cref="Count"/>.</exception>
+    /// <returns>The value of the bit at position <paramref name="index"/>; <see langword="false"/> when <paramref name="index"/> is out of range.</returns>
+    /// <remarks>讀取不擲例外：插件常在 hook detour 裡查解鎖狀態，例外穿出原生邊界＝遊戲結束；超出範圍（含負數）一律當作沒設定。寫入（<see cref="Set"/>）照舊擲例外。</remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool Get(int index) {
-        ArgumentOutOfRangeException.ThrowIfNegative(index, nameof(index));
-        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, bitCount, nameof(index));
+        if ((uint)index >= (uint)bitCount)
+            return false;
 
         (uint byteIndex, uint bitOffset) = Math.DivRem((uint)index, 8);
         return ((ptr[byteIndex]) & (1 << (int)bitOffset)) != 0;
