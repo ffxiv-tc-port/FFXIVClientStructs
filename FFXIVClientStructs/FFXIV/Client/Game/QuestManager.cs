@@ -52,7 +52,7 @@ public unsafe partial struct QuestManager {
     [FieldOffset(0x93C), FixedSizeArray, Obsolete("Use SeenCraftingNotebookDivisionLevelRangesBitArray")] internal FixedSizeArray72<byte> _seenCraftingNotebookDivisionLevelRangesBitmask;
     [FieldOffset(0x93C), FixedSizeArray(isBitArray: true, bitCount: 72 * 8)] internal FixedSizeArray72<byte> _seenCraftingNotebookDivisionLevelRanges; // BitCount: unknown, but we know the array is 72 bytes long
     [FieldOffset(0x98C), FixedSizeArray, Obsolete("Use CompletedRecipesBitArray")] internal FixedSizeArray801<byte> _completedRecipesBitmask;
-    [FieldOffset(0x98C), FixedSizeArray(isBitArray: true, bitCount: 6407)] internal FixedSizeArray801<byte> _completedRecipes; // BitCount: RecipeSheet.Where(row => row.RowId < 30000).Max(row => row.RowId)
+    [FieldOffset(0x98C), FixedSizeArray(isBitArray: true, bitCount: 801 * 8)] internal FixedSizeArray801<byte> _completedRecipes; // BitCount: the whole array, at least RecipeSheet.Where(row => row.RowId < 30000).Max(row => row.RowId) + 1
 
     [FieldOffset(0xCB0)] private uint UnkCB0;
     [FieldOffset(0xCB4)] private uint UnkCB4;

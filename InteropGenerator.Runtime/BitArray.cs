@@ -70,7 +70,7 @@ public readonly unsafe struct BitArray(byte* ptr, int bitCount) {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool Get(int index) {
         ArgumentOutOfRangeException.ThrowIfNegative(index, nameof(index));
-        ArgumentOutOfRangeException.ThrowIfGreaterThan(index, bitCount, nameof(index));
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, bitCount, nameof(index));
 
         (uint byteIndex, uint bitOffset) = Math.DivRem((uint)index, 8);
         return ((ptr[byteIndex]) & (1 << (int)bitOffset)) != 0;
@@ -86,7 +86,7 @@ public readonly unsafe struct BitArray(byte* ptr, int bitCount) {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Set(int index, bool value) {
         ArgumentOutOfRangeException.ThrowIfNegative(index, nameof(index));
-        ArgumentOutOfRangeException.ThrowIfGreaterThan(index, bitCount, nameof(index));
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, bitCount, nameof(index));
 
         (uint byteIndex, uint bitOffset) = Math.DivRem((uint)index, 8);
 
