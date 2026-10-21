@@ -34,7 +34,8 @@ public unsafe partial struct AddonGSInfoCardList {
     [FieldOffset(0x520)] public AtkImageNode* SelectedCardAcquisitionIcon;
 
     // Kept only so plugins compiled against the old layout still bind; the TC addon stores no filter int (0x520 is the icon node pointer).
-    [FieldOffset(0x520), Obsolete("TC client has no filter-mode field; read CardDisplayFilter instead. This aliases the low half of SelectedCardAcquisitionIcon.")]
+    // An error, not a warning: new code that reads it gets half a pointer, and writing it corrupts the icon node pointer.
+    [FieldOffset(0x520), Obsolete("TC client has no filter-mode field; read CardDisplayFilter instead. This aliases the low half of SelectedCardAcquisitionIcon.", true)]
     public GSInfoCardListFilterMode FilterMode;
     [FieldOffset(0x528)] public int TotalPages;
     [FieldOffset(0x52C)] public int RequestedPage;
