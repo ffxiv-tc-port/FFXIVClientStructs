@@ -109,3 +109,4 @@ jobs:
           name: structs.yml
           path: ./ida/ffxiv_structs.yml
           retention-days: 7
+# workflow re-registration trigger 2026-10-26T14:26:18Z

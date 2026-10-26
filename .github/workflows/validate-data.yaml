@@ -28,3 +28,4 @@ jobs:
           npm install -g js-yaml
       - name: Validate data.yml
         run: NODE_PATH="$(npm root -g):$NODE_PATH" node ./ida/data-validator.js
+# workflow re-registration trigger 2026-10-26T14:26:18Z
