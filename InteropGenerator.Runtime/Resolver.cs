@@ -133,6 +133,12 @@ public sealed class Resolver {
         foreach (var address in Addresses) {
             if (address.Value == 0) {
                 if (_resolverCache!.Cache.TryGetValue(address.CacheKey, out var offset)) {
+                    if (!IsInImage(offset)) {
+                        // 舊版快取可能存著映像外的野位址：丟掉，讓這一筆重掃並以新規則判定。
+                        _resolverCache.Cache.TryRemove(address.CacheKey, out _);
+                        _cacheChanged = true;
+                        continue;
+                    }
                     address.Value = (nint)(offset + _baseAddress);
                     var firstByte = (byte)address.Bytes[0];
                     if (_preResolveArray[firstByte] != null) {
@@ -148,6 +154,10 @@ public sealed class Resolver {
 
         return Addresses.All(a => a.Value != 0);
     }
+
+    /// <summary>落點（相對模組基址）在模組映像內。契約：解不出、或 relfollow 跟到映像外時 Value 一律維持 0，
+    /// 呼叫端因此走 ThrowNullAddress（可攔截）而不是拿野位址去呼叫／解參。</summary>
+    private bool IsInImage(long rva) => rva >= 0 && rva < _targetLength;
 
     // This function is a bit messy, but everything to make it cleaner is slower, so don't bother.
     public unsafe void Resolve() {
@@ -181,18 +191,27 @@ public sealed class Resolver {
                     }
 
                     if (count == length) {
-                        var outLocation = location;
+                        long outLocation = location;
+                        var landed = true;
 
                         foreach (var relOffset in address.RelativeFollowOffsets) {
-                            var relativeOffset =
-                                BitConverter.ToInt32(targetSpan.Slice(outLocation + relOffset, 4));
-                            outLocation = outLocation + relOffset + 4 + relativeOffset;
+                            var readAt = outLocation + relOffset;
+                            if (readAt < 0 || readAt + 4 > targetSpan.Length) {
+                                landed = false;
+                                break;
+                            }
+                            var relativeOffset = BitConverter.ToInt32(targetSpan.Slice((int)readAt, 4));
+                            outLocation = readAt + 4 + relativeOffset;
                         }
 
-                        address.Value = _baseAddress + _textSectionOffset + outLocation;
+                        // 只取第一個命中（不往後找第二個）；跟到映像外＝野位址，Value 維持 0、不寫快取。
+                        var rva = _textSectionOffset + outLocation;
+                        if (landed && IsInImage(rva)) {
+                            address.Value = (nint)(_baseAddress + rva);
 
-                        if (_resolverCache?.Cache.TryAdd(address.CacheKey, outLocation + _textSectionOffset) == true)
-                            _cacheChanged = true;
+                            if (_resolverCache?.Cache.TryAdd(address.CacheKey, rva) == true)
+                                _cacheChanged = true;
+                        }
 
                         _preResolveArray[targetSpan[location]]!.Remove(address);
                         if (_preResolveArray[targetSpan[location]]!.Count == 0) {
