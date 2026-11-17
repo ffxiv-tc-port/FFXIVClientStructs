@@ -10,7 +10,8 @@ namespace FFXIVClientStructs.FFXIV.Component.GUI;
 [GenerateInterop]
 [Inherits<AtkResNode>]
 [StructLayout(LayoutKind.Explicit, Size = 0xC0)]
-[VirtualTable("E8 ?? ?? ?? ?? 49 8B 55 ?? 0F B7 CD", [1, 87])]
+// 台服：不用上游「跟 call 進節點工廠＋固定位移」；錨在分派後第一個分支（配置 0xC0、後接 Text 分支）的 vtable lea，對不上＝解不出。
+[VirtualTable("8D 4B FF 83 F9 09 0F 87 ?? ?? ?? ?? 48 8D 15 ?? ?? ?? ?? 44 8B 84 8A ?? ?? ?? ?? 4C 03 C2 41 FF E0 45 33 C9 4C 8B C0 33 D2 B9 C0 00 00 00 E8 ?? ?? ?? ?? 48 8B D8 48 85 C0 0F 84 ?? ?? ?? ?? 48 8B C8 E8 ?? ?? ?? ?? 48 8D 05 ?? ?? ?? ?? 48 89 03 48 8B C3 48 83 C4 20 5B C3 45 33 C9 4C 8B C0 33 D2 B9 68 01 00 00", 74)]
 public unsafe partial struct AtkImageNode : ICreatable {
     [FieldOffset(0xB0)] public AtkUldPartsList* PartsList;
     [FieldOffset(0xB8)] public ushort PartId;
