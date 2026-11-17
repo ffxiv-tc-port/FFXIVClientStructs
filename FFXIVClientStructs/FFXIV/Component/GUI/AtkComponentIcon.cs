@@ -52,7 +52,7 @@ public unsafe partial struct AtkComponentIcon : ICreatable {
     [MemberFunction("E8 ?? ?? ?? ?? 4D 8B C4 40 0F B6 D6")]
     public partial void SetFrameLabelId(byte timelineId);
 
-    [MemberFunction("E9 ?? ?? ?? ?? 83 F9 64")]
+    [MemberFunction("E9 ?? ?? ?? ?? 83 F9 64 BA ?? ?? ?? ?? 49 8B C9")]
     public partial void SetCooldownProgress(float progress);
 
     [MemberFunction("E8 ?? ?? ?? ?? 41 8D 47 08")]
