@@ -8,7 +8,9 @@ namespace FFXIVClientStructs.FFXIV.Component.GUI;
 [GenerateInterop]
 [Inherits<AtkComponentBase>]
 [StructLayout(LayoutKind.Explicit, Size = 0xE0)]
-[VirtualTable("E8 ?? ?? ?? ?? 4C 8B F0 48 85 C0 0F 84 ?? ?? ?? ?? 49 8B 4D 08", [1, 1345])]
+// 台服：上游 [1, 1345] 是固定位移跳進元件工廠函式，台服排版不同會跟到映像外。
+// 改錨在工廠 DropDownList 分支的 vtable lea＋ShowPreview=true 初始化（對不上＝解不出，不會跳錯）。
+[VirtualTable("48 8D 0D ?? ?? ?? ?? 48 89 58 10 48 89 58 18 48 89 58 20 48 89 58 28 48 89 58 30 48 89 58 38 48 89 58 40 C7 80 D8 00 00 00 00 00 01 00", 3)]
 public unsafe partial struct AtkComponentDropDownList : ICreatable {
     [FieldOffset(0xC0)] public AtkComponentCheckBox* Checkbox;
     [FieldOffset(0xC8)] public AtkComponentList* List;
