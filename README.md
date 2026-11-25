@@ -1,3 +1,37 @@
+<!-- ffxiv-tc-port 繁體中文說明開始 -->
+# FFXIVClientStructs(台服 fork)
+
+社群逆向工程專案，提供 FFXIV 原生類別的記憶體結構（struct）與函式特徵碼，是 Dalamud 與所有插件跟遊戲原生記憶體互動的底層。
+
+## 台服 fork 的目的
+
+以 [yanmucorp/FFXIVClientStructs](https://github.com/yanmucorp/FFXIVClientStructs) 的中文客戶端結構分支 `TC-BASE` 為基底，再對著台服執行檔離線比對，修正對不上的特徵碼與結構，並把「對不上」的後果從遊戲崩潰改成插件處理得了的失敗。
+
+## 與上游的差異
+
+- **台服 7.3 的特徵碼修正**：`AtkComponentIcon.SetCooldownProgress`、`AtkComponentDropDownList` 的虛擬表，以及勾選框（`AtkComponentCheckBox`）與 7 種 UI 節點的虛擬表。
+- **解析器**：特徵碼跟到遊戲映像之外的位址時一律當成解不出來，不會把錯誤的位址交給呼叫端。
+- **位元陣列（`BitArray`）**：讀取超出範圍時回 `false`、不擲例外，寫入超出範圍照舊擲例外；修正已解鎖乙太之光陣列的位元數。
+- **結構修正**：`RaptureAtkModule` 的大小少 0x10，連帶修正排在它後面的 `UIModule` 欄位位移；`AddonGSInfoCardList.FilterMode` 在台服的版面上與別的欄位重疊，改成一引用就編譯失敗。
+- **空指標檢查**：UI 陣列（`…NumberArray`／`…StringArray`）的 `Instance()` 在 `AtkStage` 還沒準備好時回 `null`；`Camera.WorldToScreen` 與 `RaptureGearsetModule` 各補一處。
+- **`PacketDispatcher.HandleEventYieldPacket`**：補上這個函式的定義，[SubmarineTracker](https://github.com/ffxiv-tc-port/SubmarineTracker) 記錄潛水艇航行結果時會用到。
+
+基底 yanmucorp 的分支與原始上游 [aers/FFXIVClientStructs](https://github.com/aers/FFXIVClientStructs) 之間的差異不在上面的清單裡。
+
+## 誰在用它
+
+**絕大多數插件是透過 Dalamud 本體間接使用它**：建置時參照 `$(DalamudLibPath)FFXIVClientStructs.dll`，也就是本 fork 編出來、隨 [Dalamud](https://github.com/ffxiv-tc-port/Dalamud) 出貨的那一份。
+
+以子模組直接引用的有 5 個 repo：[Dalamud](https://github.com/ffxiv-tc-port/Dalamud)、[AutoRetainer](https://github.com/ffxiv-tc-port/AutoRetainer)、[BossmodReborn](https://github.com/ffxiv-tc-port/BossmodReborn)、[Lifestream](https://github.com/ffxiv-tc-port/Lifestream)、[Splatoon](https://github.com/ffxiv-tc-port/Splatoon)。後四個插件的子模組引用都掛在 `Condition="'$(CustomCS)'=='true'"` 底下，而它們的 csproj 設定 `CustomCS=false`，所以**實際出貨的仍是 Dalamud 附帶的那一份**。要查某個 repo 到底用哪一份，以它的 csproj 為準。
+
+授權：MIT（見 [LICENSE](LICENSE)）
+
+---
+
+以下為上游原始 README，內容未經修改：
+
+<!-- ffxiv-tc-port 繁體中文說明結束 -->
+
 FFXIVClientStructs
 ==================
 
